@@ -1,6 +1,17 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data')
-print(fn.glob(install_path))
-print(fn.empty(fn.glob(install_path)))
+require("plugins")
 
-print(install_path)
+require("settings")
+require("key-mappings")
+
+require("ui-nvimtree")
+require("ui-whichkey")
+require("ui-term")
+require("ui-bufferline")
+require("ui-theme")
+require("ui-lualine")
+require("ui-indentline")
+
+require("completion")
+require("search")
+
+require("editor-tools")
