@@ -9,6 +9,8 @@ local settings = {
 
     timeout = true,            -- waiting time for key mapping (use in whichkey)
     timeoutlen = 0,
+    ignorecase = true,
+    -- smartcase = true,
 
     signcolumn = "number", -- always show the sign column, otherwise it would shift the text each time
 }

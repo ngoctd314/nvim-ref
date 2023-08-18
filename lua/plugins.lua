@@ -26,12 +26,21 @@ return require('packer').startup(function(use)
 
   -- lsp
   use {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+
     'neovim/nvim-lspconfig',    -- collection of configurations for built-in LSP client
-    'hrsh7th/nvim-cmp',         -- autocompletion plugin
+    'hrsh7th/nvim-cmp',         -- autocompletion plugin, full support for LSP completion related capabilities
     'hrsh7th/cmp-nvim-lsp',     -- LSP source for nvim-cmp
     'saadparwaiz1/cmp_luasnip', -- snippets source for nvim-cmp
     'L3MON4D3/LuaSnip',         -- snippets plugin
+    'hrsh7th/cmp-buffer',       -- Buffer source for nvim-cpm
+    'hrsh7th/cmp-path',         -- Path source for nvim-cpm
   }
+
+  -- formatting
+  use "jose-elias-alvarez/null-ls.nvim"
+
 
   -- ui
   use {
@@ -50,10 +59,11 @@ return require('packer').startup(function(use)
     'kylechui/nvim-surround', -- change pairs
     'windwp/nvim-autopairs',  -- auto close pairs
     'numToStr/Comment.nvim',  -- quick comment
+    -- "folke/trouble.nvim",
   }
 
   -- search
-  use { 'nvim-telescope/telescope.nvim', tag = '0.1.2' }     -- search
+  use { 'nvim-telescope/telescope.nvim', tag = '0.1.2' } -- search
 
 
   if packer_bootstrap then

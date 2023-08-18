@@ -1,8 +1,5 @@
 local cmp = require("cmp")
-
--- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- local luasnip = require 'luasnip'
-
 
 cmp.setup({
     -- capabilities = capabilities,
@@ -13,12 +10,15 @@ cmp.setup({
     -- },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        { name = "buffer" },
         { name = "path" },
-
         -- { name = 'luasnip' },
-
+    }, {
+        { name = "buffer" },
     }),
+    window = {
+        -- completion = cmp.config.window.bordered(),
+        -- documentation = cmp.config.window.bordered(),
+    },
     mapping = cmp.mapping.preset.insert({
         -- ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
         -- ['<C-d>'] = cmp.mapping.scroll_docs(4),  -- Down
@@ -49,11 +49,23 @@ cmp.setup({
     }),
 })
 
-local lspconfig = require('lspconfig')
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+        }
+    }
+})
+
+
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Golang
-lspconfig.gopls.setup {
-}
+-- lspconfig.gopls.setup {
+-- capabilities = capabilities
+-- }
 
 -- map lsp
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -101,3 +113,24 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- end, opts)
     end,
 })
+
+-- lsp
+local util = require("lspconfig/util")
+local lspconfig = require("lspconfig")
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+lspconfig.gopls.setup {
+    -- capabilities = capabilities,
+    cmd = { "gopls" },
+    filetypes = { "go", "gomod", "gowork", "gotmpl" },
+    root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+    settings = {
+        gopls = {
+            completeUnimported = true,
+            usePlaceholders = true,
+            analyses = {
+                unusedparams = true,
+            }
+        }
+    },
+}

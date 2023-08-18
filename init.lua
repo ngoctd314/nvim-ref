@@ -10,8 +10,9 @@ require("ui-bufferline")
 require("ui-theme")
 require("ui-lualine")
 require("ui-indentline")
+require("ui-trouble")
+require("ui-telescope")
 
 require("completion")
-require("search")
 
 require("editor-tools")
