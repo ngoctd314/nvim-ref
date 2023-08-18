@@ -22,21 +22,22 @@ wk.register({
             function()
                 vim.lsp.buf.definition()
             end,
-            "Jupms to the definition"
+            "Jumps to the definition"
         },
-        p = {
+        e = {
             function()
                 vim.diagnostic.goto_prev()
             end,
             "Goto prev diagnostic"
         },
+        -- Renames all references to the symbol under the cursor.
         n = {
             function()
-                vim.diagnostic.goto_next()
+                vim.lsp.buf.rename()
             end,
-            "Goto next diagnostic"
+            "Rename"
         },
-        "Goto any"
+        "LSP functions"
     },
     f = {
         {

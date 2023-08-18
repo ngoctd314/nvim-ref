@@ -52,7 +52,8 @@ cmp.setup({
 local lspconfig = require('lspconfig')
 
 -- Golang
-lspconfig.gopls.setup {}
+lspconfig.gopls.setup {
+}
 
 -- map lsp
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -65,17 +66,24 @@ lspconfig.gopls.setup {}
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-    callback = function(ev)
+    callback = function(args)
         -- Enable completion triggered by <c-x><c-o>
-        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+        vim.bo[args.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
         -- Buffer local mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local opts = { buffer = ev.buf }
-        -- Displays hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        -- Selects a code action available at the current cursor position.
-        vim.keymap.set('n', 'q', vim.lsp.buf.code_action, opts)
+        local opts = { buffer = args.buf }
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client.server_capabilities.hoverProvider then
+            -- Displays hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.
+            vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+            -- vim.keymap.set('n', 'K', vim.diagnostic.open_float, { buffer = args.buf })
+        end
+        if client.server_capabilities.codeActionProvider then
+            -- Selects a code action available at the current cursor position.
+            vim.keymap.set('n', 'q', vim.lsp.buf.code_action, opts)
+        end
+        -- vim.lsp.buf.rename
 
         -- keymap('n', 'gD', vim.lsp.buf.declaration, opts)
         -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
