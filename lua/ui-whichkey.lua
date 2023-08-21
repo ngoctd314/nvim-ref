@@ -99,7 +99,7 @@ wk.register({
         end,
         "List References"
     },
-    t = {
+    e = {
         function()
             -- builtin.diagnostics({ bufnr = 0 })
             telescopeBuiltin.diagnostics()

@@ -88,29 +88,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         if client.server_capabilities.hoverProvider then
             -- Displays hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.
-            vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+            vim.keymap.set('n', 'S', vim.lsp.buf.hover, opts)
             -- vim.keymap.set('n', 'K', vim.diagnostic.open_float, { buffer = args.buf })
         end
         if client.server_capabilities.codeActionProvider then
             -- Selects a code action available at the current cursor position.
             vim.keymap.set('n', 'q', vim.lsp.buf.code_action, opts)
         end
-        -- vim.lsp.buf.rename
-
-        -- keymap('n', 'gD', vim.lsp.buf.declaration, opts)
-        -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        -- keymap('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-        -- keymap('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-        -- keymap('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-        -- keymap('n', '<space>wl', function()
-        --     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        -- end, opts)
-        -- keymap('n', '<space>D', vim.lsp.buf.type_definition, opts)
-        -- keymap('n', '<space>rn', vim.lsp.buf.rename, opts)
-        -- keymap({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-        -- keymap('n', '<space>f', function()
-        --     vim.lsp.buf.format { async = true }
-        -- end, opts)
     end,
 })
 
@@ -124,13 +108,13 @@ lspconfig.gopls.setup {
     cmd = { "gopls" },
     filetypes = { "go", "gomod", "gowork", "gotmpl" },
     root_dir = util.root_pattern("go.work", "go.mod", ".git"),
-    settings = {
-        gopls = {
-            completeUnimported = true,
-            usePlaceholders = true,
-            analyses = {
-                unusedparams = true,
-            }
-        }
-    },
+    -- settings = {
+    --     gopls = {
+    --         completeUnimported = true,
+    --         usePlaceholders = true,
+    --         analyses = {
+    --             unusedparams = true,
+    --         }
+    --     }
+    -- },
 }

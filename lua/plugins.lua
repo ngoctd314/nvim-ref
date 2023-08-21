@@ -62,8 +62,18 @@ return require('packer').startup(function(use)
     -- "folke/trouble.nvim",
   }
 
+  -- golang
+  use {
+    'ray-x/go.nvim',
+    'ray-x/guihua.lua'
+  }
+
   -- search
-  use { 'nvim-telescope/telescope.nvim', tag = '0.1.2' } -- search
+  use {
+		{ 'nvim-telescope/telescope.nvim', tag = '0.1.2' }, -- search
+		-- 'nvim-lua/popup.nvim',
+	 --  'nvim-telescope/telescope-media-files.nvim'
+	}
 
 
   if packer_bootstrap then
