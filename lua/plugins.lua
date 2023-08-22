@@ -32,10 +32,13 @@ return require('packer').startup(function(use)
     'neovim/nvim-lspconfig',    -- collection of configurations for built-in LSP client
     'hrsh7th/nvim-cmp',         -- autocompletion plugin, full support for LSP completion related capabilities
     'hrsh7th/cmp-nvim-lsp',     -- LSP source for nvim-cmp
-    'saadparwaiz1/cmp_luasnip', -- snippets source for nvim-cmp
-    'L3MON4D3/LuaSnip',         -- snippets plugin
     'hrsh7th/cmp-buffer',       -- Buffer source for nvim-cpm
     'hrsh7th/cmp-path',         -- Path source for nvim-cpm
+    'L3MON4D3/LuaSnip',         -- snippets plugin
+    'saadparwaiz1/cmp_luasnip', -- snippets source for nvim-cmp
+		'rafamadriz/friendly-snippets', -- snippets like vscode
+
+		'github/copilot.vim'
   }
 
   -- formatting
@@ -51,6 +54,11 @@ return require('packer').startup(function(use)
     'ellisonleao/gruvbox.nvim',
     'nvim-treesitter/nvim-treesitter'
   }
+	use({
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		after = "nvim-treesitter",
+		requires = "nvim-treesitter/nvim-treesitter",
+	})
 
   -- tools
   use {

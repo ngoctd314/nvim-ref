@@ -1,24 +1,21 @@
 local cmp = require("cmp")
--- local luasnip = require 'luasnip'
+local luasnip = require 'luasnip'
 
+require("luasnip.loaders.from_vscode").lazy_load()
 cmp.setup({
     -- capabilities = capabilities,
-    -- snippet = {
-    --     expand = function(args)
-    --         luasnip.lsp_expand(args.body)
-    --     end,
-    -- },
+    snippet = {
+        expand = function(args)
+            luasnip.lsp_expand(args.body)
+        end,
+    },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = "path" },
-        -- { name = 'luasnip' },
+        { name = 'luasnip' },
     }, {
         { name = "buffer" },
     }),
-    window = {
-        -- completion = cmp.config.window.bordered(),
-        -- documentation = cmp.config.window.bordered(),
-    },
     mapping = cmp.mapping.preset.insert({
         -- ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
         -- ['<C-d>'] = cmp.mapping.scroll_docs(4),  -- Down
@@ -28,20 +25,20 @@ cmp.setup({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
         },
-        ['<Tab>'] = cmp.mapping(function(fallback)
+        ['<C-j>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
-                -- elseif luasnip.expand_or_jumpable() then
-                --     luasnip.expand_or_jump()
+						elseif luasnip.expand_or_jumpable() then
+								luasnip.expand_or_jump()
             else
                 fallback()
             end
         end, { 'i', 's' }),
-        ['<S-Tab>'] = cmp.mapping(function(fallback)
+        ['<C-k>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
-                -- elseif luasnip.jumpable(-1) then
-                --     luasnip.jump(-1)
+						elseif luasnip.jumpable(-1) then
+								luasnip.jump(-1)
             else
                 fallback()
             end
@@ -59,20 +56,6 @@ require("mason").setup({
     }
 })
 
-
--- local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
--- Golang
--- lspconfig.gopls.setup {
--- capabilities = capabilities
--- }
-
--- map lsp
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
--- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
--- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
--- vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
--- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
@@ -103,18 +86,19 @@ local util = require("lspconfig/util")
 local lspconfig = require("lspconfig")
 -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+-- Golang
 lspconfig.gopls.setup {
     -- capabilities = capabilities,
     cmd = { "gopls" },
     filetypes = { "go", "gomod", "gowork", "gotmpl" },
     root_dir = util.root_pattern("go.work", "go.mod", ".git"),
-    -- settings = {
-    --     gopls = {
-    --         completeUnimported = true,
-    --         usePlaceholders = true,
-    --         analyses = {
-    --             unusedparams = true,
-    --         }
-    --     }
-    -- },
+    settings = {
+        gopls = {
+            completeUnimported = true,
+            usePlaceholders = true,
+            analyses = {
+                unusedparams = true,
+            },
+        }
+    },
 }

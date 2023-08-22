@@ -16,3 +16,5 @@ require("ui-telescope")
 require("completion")
 
 require("editor-tools")
+
+require("language-golang")
