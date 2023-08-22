@@ -52,7 +52,8 @@ return require('packer').startup(function(use)
     "lukas-reineke/indent-blankline.nvim",
     { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons' },
     'ellisonleao/gruvbox.nvim',
-    'nvim-treesitter/nvim-treesitter'
+    'nvim-treesitter/nvim-treesitter',
+		-- 'RRethy/vim-illuminate'
   }
 	use({
 		"nvim-treesitter/nvim-treesitter-textobjects",

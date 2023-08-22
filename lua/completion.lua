@@ -1,7 +1,7 @@
 local cmp = require("cmp")
 local luasnip = require 'luasnip'
 
-require("luasnip.loaders.from_vscode").lazy_load()
+-- require("luasnip.loaders.from_vscode").lazy_load()
 cmp.setup({
     -- capabilities = capabilities,
     -- snippet = {
@@ -28,8 +28,8 @@ cmp.setup({
         ['<C-j>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
-						elseif luasnip.expand_or_jumpable() then
-								luasnip.expand_or_jump()
+						-- elseif luasnip.expand_or_jumpable() then
+						-- 		luasnip.expand_or_jump()
             else
                 fallback()
             end
@@ -37,8 +37,8 @@ cmp.setup({
         ['<C-k>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
-						elseif luasnip.jumpable(-1) then
-								luasnip.jump(-1)
+						-- elseif luasnip.jumpable(-1) then
+						-- 		luasnip.jump(-1)
             else
                 fallback()
             end
@@ -57,6 +57,18 @@ require("mason").setup({
 })
 
 
+local function lsp_highlight_document(client)
+    if client.resolved_capabilities.document_highlight then
+        vim.api.nvim_exec([[
+            augroup lsp_document_highlight
+                autocmd! * <buffer>
+                autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+                autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+            augroup END
+            ]],
+        false)
+    end
+end
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -69,6 +81,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = { buffer = args.buf }
         local client = vim.lsp.get_client_by_id(args.data.client_id)
+
         if client.server_capabilities.hoverProvider then
             -- Displays hover information about the symbol under the cursor in a floating window. Calling the function twice will jump into the floating window.
             vim.keymap.set('n', 'S', vim.lsp.buf.hover, opts)
