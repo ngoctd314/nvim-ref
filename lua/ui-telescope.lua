@@ -1,3 +1,5 @@
+--require('telescope').load_extension('media_files')
+
 require('telescope').setup {
     defaults = {
         -- Default configuration for telescope goes here:
@@ -35,5 +37,4 @@ require('telescope').setup {
 			}
     }
 }
---require('telescope').load_extension('media_files')
 

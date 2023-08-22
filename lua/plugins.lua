@@ -80,7 +80,7 @@ return require('packer').startup(function(use)
   use {
 		{ 'nvim-telescope/telescope.nvim', tag = '0.1.2' }, -- search
 		-- 'nvim-lua/popup.nvim',
-	 --  'nvim-telescope/telescope-media-files.nvim'
+	  'nvim-telescope/telescope-media-files.nvim'
 	}
 
 

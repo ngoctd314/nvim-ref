@@ -4,15 +4,15 @@ local luasnip = require 'luasnip'
 require("luasnip.loaders.from_vscode").lazy_load()
 cmp.setup({
     -- capabilities = capabilities,
-    snippet = {
-        expand = function(args)
-            luasnip.lsp_expand(args.body)
-        end,
-    },
+    -- snippet = {
+    --     expand = function(args)
+    --         luasnip.lsp_expand(args.body)
+    --     end,
+    -- },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = "path" },
-        { name = 'luasnip' },
+        -- { name = 'luasnip' },
     }, {
         { name = "buffer" },
     }),
@@ -90,12 +90,12 @@ local lspconfig = require("lspconfig")
 lspconfig.gopls.setup {
     -- capabilities = capabilities,
     cmd = { "gopls" },
-    filetypes = { "go", "gomod", "gowork", "gotmpl" },
-    root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+    filetypes = { "go", "gomod", "gowork", "gotmpl"},
+    root_dir = util.root_pattern("go.mod", ".git"),
     settings = {
         gopls = {
             completeUnimported = true,
-            usePlaceholders = true,
+            -- usePlaceholders = true,
             analyses = {
                 unusedparams = true,
             },
